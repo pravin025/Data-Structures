@@ -47,6 +47,59 @@ class BinarySearchTree:
             current_node = current_node.left
         return current_node
 
+    def bfs(self):
+        queue = []
+        results = []
+        current_node = self.root
+        queue.append(current_node)
+        while queue:
+            current_node = queue.pop(0)
+            results.append(current_node.value)
+            if current_node.left:
+                queue.append(current_node.left)
+            if current_node.right:
+                queue.append(current_node.right)
+        return results
+
+    def dfs_pre_order(self):
+        results = []
+
+        def traverse(current_node):
+            results.append(current_node.value)
+            if current_node.left:
+                traverse(current_node.left)
+            if current_node.right:
+                traverse(current_node.right)
+
+        traverse(self.root)
+        return results
+
+    def dfs_post_order(self):
+        results = []
+
+        def traverse(current_node):
+            if current_node.left:
+                traverse(current_node.left)
+            if current_node.right:
+                traverse(current_node.right)
+            results.append(current_node.value)
+
+        traverse(self.root)
+        return results
+
+    def dfs_in_order(self):
+        results = []
+
+        def traverse(current_node):
+            if current_node.left:
+                traverse(current_node.left)
+            results.append(current_node.value)
+            if current_node.right:
+                traverse(current_node.right)
+
+        traverse(self.root)
+        return results
+
 
 print("-------------------------- insert ops --------------------------")
 bst = BinarySearchTree()
@@ -69,3 +122,44 @@ print(bst.min_value_node(bst.root).value)
 bst.insert(2)
 print(bst.min_value_node(bst.root).value)
 print(bst.min_value_node(bst.root.left).value)
+
+print("-----------------------  BFS -----------------------")
+tree = BinarySearchTree()
+tree.insert(10)
+tree.insert(12)
+tree.insert(13)
+tree.insert(20)
+print(tree.bfs())
+
+print("-----------------------  DFS Pre Order -----------------------")
+tree = BinarySearchTree()
+tree.insert(47)
+tree.insert(21)
+tree.insert(76)
+tree.insert(18)
+tree.insert(27)
+tree.insert(52)
+tree.insert(82)
+print(tree.dfs_pre_order())
+
+print("-----------------------  DFS Post Order -----------------------")
+tree = BinarySearchTree()
+tree.insert(47)
+tree.insert(21)
+tree.insert(76)
+tree.insert(18)
+tree.insert(27)
+tree.insert(52)
+tree.insert(82)
+print(tree.dfs_post_order())
+
+print("-----------------------  DFS In Order -----------------------")
+tree = BinarySearchTree()
+tree.insert(47)
+tree.insert(21)
+tree.insert(76)
+tree.insert(18)
+tree.insert(27)
+tree.insert(52)
+tree.insert(82)
+print(tree.dfs_in_order())
